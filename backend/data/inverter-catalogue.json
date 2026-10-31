@@ -1,0 +1,161 @@
+{
+  "brands": [
+    "Luminous",
+    "Microtek",
+    "V-Guard"
+  ],
+  "models": [
+    {
+      "id": "luminous-zelio-1100",
+      "manufacturer": "Luminous",
+      "modelName": "Zelio+ 1100",
+      "vaRating": 900,
+      "ratedOutputW": 756,
+      "powerFactor": null,
+      "waveform": "Pure sine wave",
+      "batterySystemV": 12,
+      "batteryCount": 1,
+      "supportedBatteryTypes": [
+        "flat",
+        "tubular",
+        "smf"
+      ],
+      "minBatteryAh": null,
+      "maxBatteryAh": null,
+      "maxChargingA": null,
+      "efficiency": null,
+      "surgeCapacity": null,
+      "inputVoltageRange": null,
+      "outputVoltage": null,
+      "transferTimeMs": null,
+      "productUrl": "https://www.luminousindia.com/home-inverters/zelio-1100",
+      "verificationDate": "2026-10-31",
+      "classification": "manufacturer verified",
+      "notes": "Undocumented parameters remain null. PF, surge and efficiency are not certified by this record."
+    },
+    {
+      "id": "luminous-power-sine-1100",
+      "manufacturer": "Luminous",
+      "modelName": "Power sine 1100",
+      "vaRating": 900,
+      "ratedOutputW": 756,
+      "powerFactor": null,
+      "waveform": "Pure sine wave",
+      "batterySystemV": 12,
+      "batteryCount": 1,
+      "supportedBatteryTypes": null,
+      "minBatteryAh": null,
+      "maxBatteryAh": null,
+      "maxChargingA": null,
+      "efficiency": null,
+      "surgeCapacity": null,
+      "inputVoltageRange": {
+        "ups": [
+          180,
+          260
+        ]
+      },
+      "outputVoltage": null,
+      "transferTimeMs": {
+        "maxExclusive": 15
+      },
+      "productUrl": "https://www.luminousindia.com/home-inverters/power-sine-1100",
+      "verificationDate": "2026-10-31",
+      "classification": "manufacturer verified",
+      "notes": "Undocumented parameters remain null. PF, surge and efficiency are not certified by this record."
+    },
+    {
+      "id": "luminous-zelio-1700",
+      "manufacturer": "Luminous",
+      "modelName": "Zelio+ 1700",
+      "vaRating": 1500,
+      "ratedOutputW": 1260,
+      "powerFactor": null,
+      "waveform": "Pure sine wave",
+      "batterySystemV": 24,
+      "batteryCount": 2,
+      "supportedBatteryTypes": [
+        "flat",
+        "tubular",
+        "smf"
+      ],
+      "minBatteryAh": null,
+      "maxBatteryAh": null,
+      "maxChargingA": null,
+      "efficiency": null,
+      "surgeCapacity": null,
+      "inputVoltageRange": null,
+      "outputVoltage": null,
+      "transferTimeMs": null,
+      "productUrl": "https://www.luminousindia.com/home-inverters/zelio-1700",
+      "verificationDate": "2026-10-31",
+      "classification": "manufacturer verified",
+      "notes": "24 V is total battery-bank voltage, not per-battery voltage. Product prose is ambiguous; technical table specifies 24 V and two batteries. No battery Ah assumed."
+    },
+    {
+      "id": "microtek-super-power-1100-sw",
+      "manufacturer": "Microtek",
+      "modelName": "SUPER POWER UPS 1100 12V Pure Sine Wave 950VA (899-A21-1101)",
+      "vaRating": 950,
+      "ratedOutputW": 760,
+      "powerFactor": null,
+      "waveform": "Pure sine wave",
+      "batterySystemV": 12,
+      "batteryCount": 1,
+      "supportedBatteryTypes": [
+        "flat",
+        "tubular",
+        "smf"
+      ],
+      "minBatteryAh": null,
+      "maxBatteryAh": null,
+      "maxChargingA": null,
+      "efficiency": null,
+      "surgeCapacity": null,
+      "inputVoltageRange": {
+        "inverter": [
+          80,
+          290
+        ],
+        "ups": [
+          180,
+          265
+        ]
+      },
+      "outputVoltage": "230 V \u00b110%",
+      "transferTimeMs": null,
+      "productUrl": "https://www.microtek.in/product/power-backup-solutions/best-inverter-for-home-india/listing/super-power-pure-sinewave-ups-models-1100-12v-sw",
+      "verificationDate": "2026-10-31",
+      "classification": "manufacturer verified",
+      "notes": "Official page prints efficiency <80%, not a usable measured efficiency; numerical efficiency remains null. User efficiency estimate remains editable. Do not confuse this SKU with NEW digital-wave variants."
+    },
+    {
+      "id": "vguard-prime-1150",
+      "manufacturer": "V-Guard",
+      "modelName": "Prime 1150",
+      "vaRating": 1000,
+      "ratedOutputW": 800,
+      "powerFactor": null,
+      "waveform": "Pure sine wave",
+      "batterySystemV": 12,
+      "batteryCount": 1,
+      "supportedBatteryTypes": [
+        "flat",
+        "tubular",
+        "smf"
+      ],
+      "minBatteryAh": 80,
+      "maxBatteryAh": 220,
+      "maxChargingA": null,
+      "efficiency": null,
+      "surgeCapacity": null,
+      "inputVoltageRange": null,
+      "outputVoltage": null,
+      "transferTimeMs": null,
+      "productUrl": "https://vguard.com/products/prime-1150-digital-inverter-ups",
+      "verificationDate": "2026-10-31",
+      "classification": "manufacturer verified",
+      "notes": "Official key features state 1000 VA / 800 W capacity; used as running ceiling. The page also calls 800 W maximum peak load: no separate motor-surge rating or duration is certified. Overview says 80\u2013220 Ah, technical table 80\u2013230 Ah; conservative intersection 80\u2013220 used pending confirmation."
+    }
+  ]
+}

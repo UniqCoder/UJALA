@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useStore } from '../store.js';
+import AppliancePicker from './AppliancePicker.jsx';
 import { ROOMS, roomOf } from './House.jsx';
 
 const shortName = (name) => name.replace(/\s*\(.*?\)/, '');
@@ -38,6 +39,9 @@ function Editor({ appliance, onClose }) {
           Watts
           <input type="number" min="1" max="10000" defaultValue={appliance.watts} onChange={num('watts', 1, 10000)} />
         </label>
+        <p className="hint wide">{appliance.wattsOverridden ? 'User-entered wattage override' : (appliance.classification ?? 'Legacy typical estimate')} · Startup and duty remain editable assumptions.{appliance.sourceUrl && <> <a href={appliance.sourceUrl} target="_blank" rel="noreferrer">Original source</a></>}</p>
+        <label>Duty fraction (estimate)<input type="number" min="0.01" max="1" step="0.01" defaultValue={appliance.dutyCycle ?? 1} onChange={num('dutyCycle', .01, 1)} /></label>
+        <label>Startup factor (estimate)<input type="number" min="1" max="8" step="0.1" defaultValue={appliance.surgeFactor ?? 1} onChange={num('surgeFactor', 1, 8)} /></label>
         <label>
           How many
           <input type="number" min="1" max="20" step="1" defaultValue={appliance.quantity ?? 1} onChange={num('quantity', 1, 20)} />
@@ -95,7 +99,7 @@ function AddAppliance() {
   }, [q, call]);
 
   const pick = (item) => {
-    add({ name: item.name, watts: item.watts, surgeFactor: item.surgeFactor, dutyCycle: item.dutyCycle, room: roomOf(item.room) });
+    add({ ...item, room: roomOf(item.room) });
     setQ('');
   };
 
@@ -149,7 +153,8 @@ export default function Switchboard({ units }) {
           </div>
         ))}
       </div>
-      <AddAppliance />
+      <AppliancePicker />
+      <details><summary>Search the legacy catalogue</summary><AddAppliance /></details>
       <Editor key={editing} appliance={appliances.find((a) => a.id === editing)} onClose={() => setEditing(null)} />
     </section>
   );

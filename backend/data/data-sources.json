@@ -1,0 +1,568 @@
+[
+  {
+    "datasetItemId": "luminous-zelio-1100",
+    "manufacturer": "Luminous",
+    "productReference": "Zelio+ 1100",
+    "sourceTitle": "Zelio+ 1100 \u2014 official product page",
+    "officialSourceUrl": "https://www.luminousindia.com/home-inverters/zelio-1100",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "manufacturer",
+      "modelName",
+      "vaRating",
+      "ratedOutputW",
+      "waveform",
+      "batterySystemV",
+      "batteryCount",
+      "supportedBatteryTypes"
+    ],
+    "confidence": "high; see field caveats",
+    "notes": "Undocumented parameters remain null. PF, surge and efficiency are not certified by this record."
+  },
+  {
+    "datasetItemId": "luminous-power-sine-1100",
+    "manufacturer": "Luminous",
+    "productReference": "Power sine 1100",
+    "sourceTitle": "Power sine 1100 \u2014 official product page",
+    "officialSourceUrl": "https://www.luminousindia.com/home-inverters/power-sine-1100",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "manufacturer",
+      "modelName",
+      "vaRating",
+      "ratedOutputW",
+      "waveform",
+      "batterySystemV",
+      "batteryCount",
+      "inputVoltageRange",
+      "transferTimeMs"
+    ],
+    "confidence": "high; see field caveats",
+    "notes": "Undocumented parameters remain null. PF, surge and efficiency are not certified by this record."
+  },
+  {
+    "datasetItemId": "luminous-zelio-1700",
+    "manufacturer": "Luminous",
+    "productReference": "Zelio+ 1700",
+    "sourceTitle": "Zelio+ 1700 \u2014 official product page",
+    "officialSourceUrl": "https://www.luminousindia.com/home-inverters/zelio-1700",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "manufacturer",
+      "modelName",
+      "vaRating",
+      "ratedOutputW",
+      "waveform",
+      "batterySystemV",
+      "batteryCount",
+      "supportedBatteryTypes"
+    ],
+    "confidence": "high; see field caveats",
+    "notes": "24 V is total battery-bank voltage, not per-battery voltage. Product prose is ambiguous; technical table specifies 24 V and two batteries. No battery Ah assumed."
+  },
+  {
+    "datasetItemId": "microtek-super-power-1100-sw",
+    "manufacturer": "Microtek",
+    "productReference": "SUPER POWER UPS 1100 12V Pure Sine Wave 950VA (899-A21-1101)",
+    "sourceTitle": "SUPER POWER UPS 1100 12V Pure Sine Wave 950VA (899-A21-1101) \u2014 official product page",
+    "officialSourceUrl": "https://www.microtek.in/product/power-backup-solutions/best-inverter-for-home-india/listing/super-power-pure-sinewave-ups-models-1100-12v-sw",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "manufacturer",
+      "modelName",
+      "vaRating",
+      "ratedOutputW",
+      "waveform",
+      "batterySystemV",
+      "batteryCount",
+      "supportedBatteryTypes",
+      "inputVoltageRange",
+      "outputVoltage"
+    ],
+    "confidence": "high; see field caveats",
+    "notes": "Official page prints efficiency <80%, not a usable measured efficiency; numerical efficiency remains null. User efficiency estimate remains editable. Do not confuse this SKU with NEW digital-wave variants."
+  },
+  {
+    "datasetItemId": "vguard-prime-1150",
+    "manufacturer": "V-Guard",
+    "productReference": "Prime 1150",
+    "sourceTitle": "Prime 1150 \u2014 official product page",
+    "officialSourceUrl": "https://vguard.com/products/prime-1150-digital-inverter-ups",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "manufacturer",
+      "modelName",
+      "vaRating",
+      "ratedOutputW",
+      "waveform",
+      "batterySystemV",
+      "batteryCount",
+      "supportedBatteryTypes",
+      "minBatteryAh",
+      "maxBatteryAh"
+    ],
+    "confidence": "high; see field caveats",
+    "notes": "Official key features state 1000 VA / 800 W capacity; used as running ceiling. The page also calls 800 W maximum peak load: no separate motor-surge rating or duration is certified. Overview says 80\u2013220 Ah, technical table 80\u2013230 Ah; conservative intersection 80\u2013220 used pending confirmation."
+  },
+  {
+    "datasetItemId": "standard-ceiling-fan",
+    "manufacturer": null,
+    "productReference": "Standard ceiling fan",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "bldc-ceiling-fan",
+    "manufacturer": null,
+    "productReference": "BLDC ceiling fan",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "table-fan",
+    "manufacturer": null,
+    "productReference": "Table fan",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "pedestal-fan",
+    "manufacturer": null,
+    "productReference": "Pedestal fan",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "exhaust-fan",
+    "manufacturer": null,
+    "productReference": "Exhaust fan",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "single-door-fridge",
+    "manufacturer": null,
+    "productReference": "Single-door refrigerator",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Watts represent compressor-on input, not annual kWh converted to continuous watts. Cycling varies with temperature and use."
+  },
+  {
+    "datasetItemId": "double-door-fridge",
+    "manufacturer": null,
+    "productReference": "Double-door refrigerator",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Watts represent compressor-on input, not annual kWh converted to continuous watts. Cycling varies with temperature and use."
+  },
+  {
+    "datasetItemId": "large-fridge",
+    "manufacturer": null,
+    "productReference": "Large refrigerator",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Watts represent compressor-on input, not annual kWh converted to continuous watts. Cycling varies with temperature and use."
+  },
+  {
+    "datasetItemId": "led-5",
+    "manufacturer": null,
+    "productReference": "5W LED bulb",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "led-9",
+    "manufacturer": null,
+    "productReference": "9W LED bulb",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "led-12",
+    "manufacturer": null,
+    "productReference": "12W LED bulb",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "led-tube",
+    "manufacturer": null,
+    "productReference": "LED tube light",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "emergency-light",
+    "manufacturer": null,
+    "productReference": "Emergency light",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "tv-32",
+    "manufacturer": null,
+    "productReference": "32-inch LED TV",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "tv-43",
+    "manufacturer": null,
+    "productReference": "43-inch LED TV",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "router",
+    "manufacturer": null,
+    "productReference": "Wi-Fi router",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "laptop",
+    "manufacturer": null,
+    "productReference": "Laptop",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "desktop",
+    "manufacturer": null,
+    "productReference": "Desktop computer",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates."
+  },
+  {
+    "datasetItemId": "mixer",
+    "manufacturer": null,
+    "productReference": "Mixer grinder",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Set required hours to actual use duration; duty is the fraction active within those hours, avoid counting the same idle time twice."
+  },
+  {
+    "datasetItemId": "microwave",
+    "manufacturer": null,
+    "productReference": "Microwave (input power)",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Set required hours to actual use duration; duty is the fraction active within those hours, avoid counting the same idle time twice."
+  },
+  {
+    "datasetItemId": "ro",
+    "manufacturer": null,
+    "productReference": "RO water purifier",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Set required hours to actual use duration; duty is the fraction active within those hours, avoid counting the same idle time twice."
+  },
+  {
+    "datasetItemId": "kettle",
+    "manufacturer": null,
+    "productReference": "Electric kettle",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Set required hours to actual use duration; duty is the fraction active within those hours, avoid counting the same idle time twice."
+  },
+  {
+    "datasetItemId": "pump",
+    "manufacturer": null,
+    "productReference": "Water pump",
+    "sourceTitle": "UJALA editable planning assumption",
+    "officialSourceUrl": null,
+    "retrievedDate": null,
+    "verificationDate": null,
+    "specificationsSupported": [],
+    "estimatedFields": [
+      "ratedOperatingW",
+      "surgeFactor",
+      "dutyCycle",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "low",
+    "notes": "Illustrative planning default, not a verified measurement or category-wide rating. Replace with nameplate watts; duty and startup surge are editable estimates. Set required hours to actual use duration; duty is the fraction active within those hours, avoid counting the same idle time twice."
+  },
+  {
+    "datasetItemId": "philips-wiz-8718699732585",
+    "manufacturer": "Philips / Signify",
+    "productReference": "8718699732585",
+    "sourceTitle": "Official Philips product page",
+    "officialSourceUrl": "https://www.lighting.philips.co.in/consumer/p/smart-wi-fi-led-bulb-e27/8718699732585/specifications",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "name",
+      "modelNumber",
+      "ratedOperatingW"
+    ],
+    "estimatedFields": [
+      "surgeFactor",
+      "dutyCycle"
+    ],
+    "confidence": "high for rated watts only",
+    "notes": "Exact product and 9 W verified on official page. Duty=1 for full-brightness use; startup factor=1 is an unverified planning estimate. Standby and voltage undocumented here; remain null."
+  },
+  {
+    "datasetItemId": "samsung-ua32h4570fuxxl",
+    "manufacturer": "Samsung",
+    "productReference": "UA32H4570FUXXL",
+    "sourceTitle": "Samsung India H4570 \u2014 Power & Eco Solution",
+    "officialSourceUrl": "https://www.samsung.com/in/tvs/hd-tv/h4570-32-inch-hd-smart-tv-ua32h4570fuxxl/",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "modelNumber",
+      "maxOperatingW",
+      "voltage",
+      "frequencyHz"
+    ],
+    "estimatedFields": [
+      "dutyCycle",
+      "surgeFactor",
+      "estimatedEnergyWhPerHour"
+    ],
+    "confidence": "high for maximum input rating only",
+    "notes": "Official maximum electrical input is 65 W; planner conservatively uses this ceiling, not typical consumption. The separate 20 W speaker output is not electrical input. Duty=1 and startup factor=1 are editable planning estimates; standby unknown."
+  }
+]

@@ -4,7 +4,8 @@
 export const EPS = 1e-9;
 
 // Safe depth of discharge by battery type.
-export const DOD = { flat: 0.5, tubular: 0.7, lithium: 0.9 };
+import { DOD, capacities } from '../../shared/power.js';
+export { DOD, capacities };
 
 export class InputError extends Error {
   constructor(message) {
@@ -33,6 +34,8 @@ export function normalizeSetup(setup) {
   let health = readNum(setup, 'health', 1, 0.1, 100, 'Battery health');
   if (health > 1) health /= 100; // accept 80 as well as 0.8
   return {
+    ratedOutputW: setup.ratedOutputW == null ? null : readNum(setup, 'ratedOutputW', undefined, 1, 20000, 'Rated output watts'),
+    inverterId: typeof setup.inverterId === 'string' ? setup.inverterId : null,
     inverterVA: readNum(setup, 'inverterVA', undefined, 50, 20000, 'Inverter rating (VA)'),
     powerFactor: readNum(setup, 'powerFactor', 0.8, 0.5, 1, 'Power factor'),
     surgeTolerance: readNum(setup, 'surgeTolerance', 1.5, 1, 4, 'Surge tolerance'),
@@ -42,16 +45,6 @@ export function normalizeSetup(setup) {
     health,
     efficiency: readNum(setup, 'efficiency', 0.85, 0.5, 1, 'Inverter efficiency'),
     outageHours: readNum(setup, 'outageHours', undefined, 0.25, 48, 'Expected outage (hours)'),
-  };
-}
-
-// O(1). maxW = VA × PF; peakW = maxW × surge tolerance; usableWh = Ah × V × DoD × health × efficiency.
-export function capacities(s) {
-  const maxW = s.inverterVA * s.powerFactor;
-  return {
-    maxW,
-    peakW: maxW * s.surgeTolerance,
-    usableWh: s.batteryAh * s.batteryV * DOD[s.batteryType] * s.health * s.efficiency,
   };
 }
 
@@ -186,7 +179,7 @@ export function buildPlan(algorithm, ctx, result, timeMs) {
     C3: peakDemandW <= caps.peakW + EPS,
     C4: true, // must-run items are always added above
   };
-  const warnings = [...(result.warnings ?? [])];
+  const warnings = [...(ctx.warnings ?? []), ...(result.warnings ?? [])];
   if (!constraintsOk.C3) {
     warnings.push(
       `This plan fails the surge check: starting the largest motor needs ${fmt(peakDemandW)} W but the inverter's peak is ${fmt(caps.peakW)} W. Use the branch and bound result.`

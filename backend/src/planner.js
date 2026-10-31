@@ -1,3 +1,4 @@
+import { resolveSetup, setupWarnings } from './catalogues.js';
 // Glue between the API and the algorithms: validate, run, time, format.
 import { normalizeSetup, capacities, expandAppliances, splitMustRun, buildPlan, InputError } from './model.js';
 import { greedy } from './algorithms/greedy.js';
@@ -16,10 +17,10 @@ export const ALGORITHMS = {
 
 // O(n). Validates input and computes capacities and items once.
 export function prepare(setup, appliances) {
-  const s = normalizeSetup(setup);
+  const s = normalizeSetup(resolveSetup(setup));
   const caps = capacities(s);
   const items = expandAppliances(appliances, s.outageHours);
-  return { setup: s, caps, items, ...splitMustRun(items, caps) };
+  return { setup: s, warnings: setupWarnings(s), caps, items, ...splitMustRun(items, caps) };
 }
 
 function run(algorithm, ctx, opts) {

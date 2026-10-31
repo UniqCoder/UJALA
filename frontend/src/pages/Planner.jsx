@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState, useEffect } from 'react';
 import { useStore, reducedMotion } from '../store.js';
 import { capacities, units as toUnits, totals, fmt } from '../power.js';
+import InverterSelector from '../components/InverterSelector.jsx';
 import House from '../components/House.jsx';
 import InverterPanel from '../components/InverterPanel.jsx';
 import Switchboard from '../components/Switchboard.jsx';
@@ -15,13 +16,14 @@ export const METHODS = [
   { id: 'brute', label: 'Brute force' },
 ];
 
-function NumField({ label, value, onChange, min, max, step = 1, unit }) {
+function NumField({ label, value, onChange, min, max, step = 1, unit, disabled = false }) {
   return (
     <label className="field">
       <span>{label}</span>
       <span className="field-input">
         <input
           type="number"
+          disabled={disabled}
           min={min}
           max={max}
           step={step}
@@ -46,8 +48,13 @@ function Setup() {
   return (
     <section className="setup" aria-label="Your setup">
       <h2>Your setup</h2>
+      <InverterSelector>
+        <div className="fields">
+        <NumField label="Inverter" disabled={!!s.inverterId} value={s.inverterVA} min={50} max={20000} step={50} unit="VA" onChange={(v) => setSetup({ inverterVA: v })} />
+        {!s.inverterId && <label className="field"><span>Rated output W (optional)</span><input type="number" min="1" max="20000" placeholder="Blank: use VA × PF" value={s.ratedOutputW ?? ''} onChange={(e) => { const v = Number(e.target.value); if (e.target.value === '' || (v >= 1 && v <= 20000)) setSetup({ ratedOutputW: e.target.value === '' ? null : v }); }} /></label>}
+        </div>
+      </InverterSelector>
       <div className="fields">
-        <NumField label="Inverter" value={s.inverterVA} min={50} max={20000} step={50} unit="VA" onChange={(v) => setSetup({ inverterVA: v })} />
         <NumField label="Battery" value={s.batteryAh} min={1} max={2000} step={10} unit="Ah" onChange={(v) => setSetup({ batteryAh: v })} />
         <label className="field">
           <span>Voltage</span>
@@ -78,9 +85,9 @@ function Setup() {
       <details className="advanced">
         <summary>Advanced</summary>
         <div className="fields">
-          <NumField label="Power factor" value={s.powerFactor} min={0.5} max={1} step={0.05} onChange={(v) => setSetup({ powerFactor: v })} />
-          <NumField label="Efficiency" value={s.efficiency} min={0.5} max={1} step={0.05} onChange={(v) => setSetup({ efficiency: v })} />
-          <NumField label="Surge tolerance" value={s.surgeTolerance} min={1} max={4} step={0.1} unit="×" onChange={(v) => setSetup({ surgeTolerance: v })} />
+          <NumField label="PF estimate (fallback only)" value={s.powerFactor} min={0.5} max={1} step={0.05} onChange={(v) => setSetup({ powerFactor: v })} />
+          <NumField label="Efficiency estimate" value={s.efficiency} min={0.5} max={1} step={0.05} onChange={(v) => setSetup({ efficiency: v })} />
+          <NumField label="Surge estimate" value={s.surgeTolerance} min={1} max={4} step={0.1} unit="×" onChange={(v) => setSetup({ surgeTolerance: v })} />
         </div>
       </details>
     </section>
@@ -202,7 +209,7 @@ export default function Planner() {
       const body = { setup, appliances };
       const p = await call('/plan', { ...body, algorithm });
       setPlan(p);
-      applyPlan(p.selected.map((s) => s.id));
+      if (Object.values(p.constraintsOk).every(Boolean)) applyPlan(p.selected.map((s) => s.id));
       call('/staged', body).then(setStaged).catch(() => {});
     } catch (err) {
       if (err.message) setError(err.message);
@@ -231,6 +238,7 @@ export default function Planner() {
       <div className="planner-right">
         <InverterPanel t={t} caps={caps} />
         <div className="method">
+          <h3>4 · Optimization</h3>
           <label className="field">
             <span>Method</span>
             <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
