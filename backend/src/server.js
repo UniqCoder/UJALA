@@ -90,7 +90,7 @@ api.get('/catalogue/heights', (req, res) => {
 api.get('/testcases', (req, res) => res.json(testcases));
 
 api.post('/plan', (req, res) => {
-  const { setup, appliances, algorithm = 'bb-lc' } = body(req);
+  const { setup, appliances, algorithm = 'auto' } = body(req);
   res.json(solve(String(algorithm), setup, appliances));
 });
 

@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useStore } from '../store.js';
 import CaseLoader, { useTestcases } from '../components/CaseLoader.jsx';
-import { METHODS } from './Planner.jsx';
+const METHODS = [
+  { id: 'bb-lc', label: 'Branch and bound (least cost)' },
+  { id: 'bb-fifo', label: 'Branch and bound (FIFO)' },
+  { id: 'bb-lifo', label: 'Branch and bound (LIFO)' },
+  { id: 'dp', label: 'Dynamic programming' },
+  { id: 'greedy', label: 'Greedy' },
+  { id: 'brute', label: 'Brute force' },
+];
 
 let growthJob = null;
 const label = (id) => METHODS.find((m) => m.id === id)?.label ?? id;

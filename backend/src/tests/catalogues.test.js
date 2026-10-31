@@ -118,3 +118,27 @@ test('Microtek SW manual data preserves bounds and charging guidance without inv
   assert.equal(m.efficiency, null); assert.equal(m.powerFactor, null);
   assert.ok(sources.some((s) => s.datasetItemId === m.id && s.officialSourceUrl === m.manualUrl));
 });
+
+test('automatic planning matches the exact optimum and passes every constraint, including motor surge', async () => {
+  const cases = await get('/testcases');
+  for (const id of ['TC1', 'TC2', 'TC3', 'TC4']) {
+    const c = cases.find((c) => c.id === id);
+    const plan = solve('auto', c.setup, c.appliances);
+    assert.equal(plan.totalImportance, solve('brute', c.setup, c.appliances).totalImportance);
+    assert.ok(Object.values(plan.constraintsOk).every(Boolean));
+    assert.equal(plan.optimization.mode, 'automatic');
+    assert.equal(plan.optimization.optimal, true);
+  }
+});
+test('plan API defaults to automatic optimization, retaining explicit lab methods and must-run errors', async () => {
+  const post = (body) => fetch(url + '/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  const response = await post({ setup: base, appliances: [{ ...appliance, mustRun: true }] });
+  assert.equal(response.status, 200);
+  const p = await response.json();
+  assert.equal(p.optimization.mode, 'automatic');
+  assert.ok(p.selected.some((x) => x.mustRun));
+  const explicit = await (await post({ setup: base, appliances: [appliance], algorithm: 'greedy' })).json();
+  assert.equal(explicit.algorithm, 'greedy');
+  const bad = await post({ setup: base, appliances: [{ ...appliance, watts: 2000, mustRun: true }] });
+  assert.equal(bad.status, 400);
+});

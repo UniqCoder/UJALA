@@ -35,7 +35,6 @@ export const useStore = create((set, get) => ({
   plan: null,
   staged: null,
   error: null,
-  algorithm: 'bb-lc',
   caseId: 'TC1',
   offline: false,
 
@@ -54,7 +53,6 @@ export const useStore = create((set, get) => ({
   // Any change to the inputs makes the last plan stale.
   setSetup: (patch) => set((s) => ({ setup: { ...s.setup, ...patch }, plan: null, staged: null, error: null })),
   selectInverter: (model) => set((s) => ({ setup: selectInverter(s.setup, model), plan: null, staged: null, error: null, caseId: null })),
-  setAlgorithm: (algorithm) => set({ algorithm }),
   loadCase: (tc) =>
     set({
       setup: { ...DEFAULTS, ...tc.setup },

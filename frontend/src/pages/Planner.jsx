@@ -7,15 +7,6 @@ import InverterPanel from '../components/InverterPanel.jsx';
 import Switchboard from '../components/Switchboard.jsx';
 import CaseLoader from '../components/CaseLoader.jsx';
 
-export const METHODS = [
-  { id: 'bb-lc', label: 'Branch and bound (least cost)' },
-  { id: 'bb-fifo', label: 'Branch and bound (FIFO)' },
-  { id: 'bb-lifo', label: 'Branch and bound (LIFO)' },
-  { id: 'dp', label: 'Dynamic programming' },
-  { id: 'greedy', label: 'Greedy' },
-  { id: 'brute', label: 'Brute force' },
-];
-
 function NumField({ label, value, onChange, min, max, step = 1, unit, disabled = false }) {
   return (
     <label className="field">
@@ -173,8 +164,8 @@ function Timeline({ staged, list, on, caps }) {
 }
 
 export default function Planner() {
-  const { setup, appliances, on, plan, staged, error, algorithm } = useStore();
-  const { setOn, setPlan, setStaged, setError, setAlgorithm, call } = useStore.getState();
+  const { setup, appliances, on, plan, staged, error } = useStore();
+  const { setOn, setPlan, setStaged, setError, call } = useStore.getState();
   const [busy, setBusy] = useState(false);
   const timers = useRef([]);
 
@@ -207,7 +198,7 @@ export default function Planner() {
     setBusy(true);
     try {
       const body = { setup, appliances };
-      const p = await call('/plan', { ...body, algorithm });
+      const p = await call('/plan', { ...body, algorithm: 'auto' });
       setPlan(p);
       if (Object.values(p.constraintsOk).every(Boolean)) applyPlan(p.selected.map((s) => s.id));
       call('/staged', body).then(setStaged).catch(() => {});
@@ -239,14 +230,7 @@ export default function Planner() {
         <InverterPanel t={t} caps={caps} />
         <div className="method">
           <h3>4 · Optimization</h3>
-          <label className="field">
-            <span>Method</span>
-            <select value={algorithm} onChange={(e) => setAlgorithm(e.target.value)}>
-              {METHODS.map((m) => (
-                <option key={m.id} value={m.id}>{m.label}</option>
-              ))}
-            </select>
-          </label>
+          <p className="hint">We automatically choose which appliances to keep on using your priorities, battery energy and inverter limits. Must-run appliances stay included.</p>
           <button className="btn primary" onClick={planMyBackup} disabled={busy || !appliances.length}>
             {busy ? 'Planning' : 'Plan my backup'}
           </button>
@@ -256,6 +240,7 @@ export default function Planner() {
               {plan.warnings.map((w) => (
                 <p key={w} className="bad">{w}</p>
               ))}
+              <p className="hint" role="status">{plan.optimization?.optimal ? 'Best plan verified for your priorities and entered estimates.' : 'Best feasible plan found so far.'}</p>
               <WhyThisPlan plan={plan} key={plan.algorithm + plan.totalImportance} />
             </>
           )}

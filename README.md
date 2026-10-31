@@ -36,7 +36,7 @@ interface:
 - Operation counts, timings, pruning statistics, DP heatmaps, and branch-and-bound
   state-space trees
 
-The **Planner** page is intended for creating a practical backup plan. The
+The **Planner** page automatically optimizes a practical backup plan using the full running, energy, surge and must-run constraints. Users do not select algorithms. The
 **Algorithm lab** page compares methods on the same input and visualizes how
 they work.
 

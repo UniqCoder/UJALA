@@ -23,7 +23,24 @@ export function prepare(setup, appliances) {
   return { setup: s, warnings: setupWarnings(s), caps, items, ...splitMustRun(items, caps) };
 }
 
+// Run the full-constraint solver automatically; compare a fast feasible baseline if its search is capped.
+function automatic(ctx, opts) {
+  const t0 = performance.now();
+  const exact = run('bb-lc', ctx, opts);
+  let best = exact;
+  if (exact.stats.capped) {
+    const baseline = run('greedy', ctx);
+    if (baseline.totalImportance > exact.totalImportance) best = baseline;
+    best.warnings.push('Search limit reached. This is the best feasible plan found; the maximum importance score has not been proven.');
+  }
+  best.optimization = { mode: 'automatic', optimal: !exact.stats.capped,
+    objective: 'maximize total appliance importance while meeting running load, energy, startup surge and must-run constraints' };
+  best.stats.timeMs = Math.round((performance.now() - t0) * 1000) / 1000;
+  return best;
+}
+
 function run(algorithm, ctx, opts) {
+  if (algorithm === 'auto') return automatic(ctx, opts);
   if (!Object.hasOwn(ALGORITHMS, algorithm)) {
     throw new InputError(`Unknown method "${algorithm}". Use one of: ${Object.keys(ALGORITHMS).join(', ')}.`);
   }

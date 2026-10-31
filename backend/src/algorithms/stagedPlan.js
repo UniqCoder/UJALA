@@ -9,7 +9,7 @@ export function stagedPlan(setup, appliances, hours = [2, 4, 6, 8]) {
   for (const T of hours) {
     let plan;
     try {
-      plan = solve('bb-lc', { ...setup, outageHours: T }, appliances);
+      plan = solve('auto', { ...setup, outageHours: T }, appliances);
     } catch (err) {
       if (!err.status) throw err;
       stages.push({ hours: T, error: err.message });
