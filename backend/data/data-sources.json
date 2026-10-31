@@ -564,5 +564,40 @@
     ],
     "confidence": "high for maximum input rating only",
     "notes": "Official maximum electrical input is 65 W; planner conservatively uses this ceiling, not typical consumption. The separate 20 W speaker output is not electrical input. Duty=1 and startup factor=1 are editable planning estimates; standby unknown."
+  },
+  {
+    "datasetItemId": "microtek-super-power-1100-sw",
+    "manufacturer": "Microtek",
+    "productReference": "Super Power SW series, UPS 1100 12V SW; manual issue 04, 25/04/2024",
+    "sourceTitle": "Official Super Power SW series user manual",
+    "officialSourceUrl": "https://cms.microtek.in/upload/product/MANUAL-450-SUPER-POWER-SW-12V-V4-ccf-1723387267904.pdf",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "minBatteryAh",
+      "maxBatteryAh",
+      "batteryAhRangeKind",
+      "chargingCurrentRule",
+      "transferTimeMs",
+      "publishedEfficiency"
+    ],
+    "confidence": "manufacturer series manual; unit revision must match",
+    "notes": "Super Power SW series manual recommends one 12 V, 100\u2013200 Ah lead-acid battery, charging current approximately 10% of battery Ah, and transfer time \u226415 ms. These are series-manual specifications, not measured values. Manual and linked brochure state efficiency >80%; the product page prints <80%. The manual also differs from the product page on input/output voltage. Product-page voltage values are retained; confirm the label/manual supplied with your unit. Planning efficiency remains an editable estimate. NEW / digital-wave models use different specifications."
+  },
+  {
+    "datasetItemId": "microtek-super-power-1100-sw",
+    "manufacturer": "Microtek",
+    "productReference": "SUPER POWER series brochure linked from inverter product page",
+    "sourceTitle": "Official Super Power series catalogue",
+    "officialSourceUrl": "https://cms.microtek.in/upload/product_series/super-power-1720709102746.pdf",
+    "retrievedDate": "2026-10-31",
+    "verificationDate": "2026-10-31",
+    "specificationsSupported": [
+      "publishedEfficiency",
+      "chargingCurrentRule",
+      "transferTimeMs"
+    ],
+    "confidence": "manufacturer series brochure",
+    "notes": "Brochure agrees with manual on >80% efficiency and \u226415 ms transfer; no fixed charging-current maximum or load-independent power factor inferred."
   }
 ]

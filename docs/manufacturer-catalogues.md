@@ -75,10 +75,19 @@ Modified: backend `package.json`, model, planner and server; frontend Planner, S
 
 ## Validation
 
-`cd backend && npm test`: 22 original acceptance checks and 13 new catalogue/model/API checks. Coverage includes brands, filters, details, preset population, authoritative watts, fallback PF, shared frontend/backend capacities, defaults, persistent overrides, voltage/chemistry/Ah warnings, motor surge, energy, must-run, all algorithms, unknown IDs, malformed filters and provenance.
+`cd backend && npm test`: 22 original acceptance checks and 14 new catalogue/model/API checks. Coverage includes brands, filters, details, preset population, authoritative watts, fallback PF, shared frontend/backend capacities, defaults, persistent overrides, voltage/chemistry/Ah warnings, motor surge, energy, must-run, all algorithms, unknown IDs, malformed filters and provenance.
 
 `cd frontend && npm run build`: production bundle builds successfully.
 
 React DOM interaction checks also passed for cascading selection, preset population, voltage warnings, preserving values on custom conversion, category selection, repeat addition, wattage override tracking and stale category reset. These checks used a temporary DOM harness without adding project dependencies.
 
 Browser visual verification was unavailable: no browser binary was installed and the attempted download returned invalid archives. Do not interpret a successful bundle or DOM interaction test as a physical inverter test, visual QA, or verified real-world backup runtime.
+
+
+## Specification panel correction
+
+The Microtek Super Power SW series [official manual](https://cms.microtek.in/upload/product/MANUAL-450-SUPER-POWER-SW-12V-V4-ccf-1723387267904.pdf), issue 04 (25/04/2024), was reviewed on 2026-10-31. It recommends a 100–200 Ah, single 12 V lead-acid battery, approximately 10% of battery Ah as charging current, and ≤15 ms transfer. The [series brochure linked by the product page](https://cms.microtek.in/upload/product_series/super-power-1720709102746.pdf) also supports the charging guideline and transfer time. Charging is a guideline based on the actual battery Ah, not an undocumented fixed maximum. No NEW/digital-wave manual was substituted for this SW variant.
+
+The manual/brochure publish >80% efficiency while the product page prints <80%. `publishedEfficiency` records the manual bound and source disagreement separately; `efficiency` remains null and backup calculations continue using the visible editable planning assumption. The manual also lists different voltage ranges/output than the product page. Product-page voltages are retained; verify the actual unit revision before electrical use. The battery Ah range is a manufacturer recommendation, not a measured hard operating boundary.
+
+The compact specification panel now renders available manufacturer fields only. It removes `?-? Ah`, `Unknown A / Unknown`, and repeated “Undocumented” placeholders. Missing values remain null in data, power factor is shown only if explicitly supplied, and compatibility warnings remain in place. Planning efficiency has its own labelled row; source/revision details are inside an expandable notes section. This improves presentation without inventing specifications.

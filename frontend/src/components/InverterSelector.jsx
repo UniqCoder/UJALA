@@ -27,14 +27,19 @@ export default function InverterSelector({ children }) {
       <dl><dt>VA / rated watts</dt><dd>{model.vaRating} VA / {model.ratedOutputW} W</dd>
         <dt>Battery bank</dt><dd>{model.batterySystemV} V · {model.batteryCount} battery / batteries · Ah not included</dd>
         <dt>Waveform</dt><dd>{model.waveform}</dd>
-        <dt>Battery types</dt><dd>{model.supportedBatteryTypes?.join(', ') ?? 'Unknown — check manual'}</dd>
-        <dt>Supported Ah</dt><dd>{model.minBatteryAh ?? '?'}–{model.maxBatteryAh ?? '?'} Ah</dd>
-        <dt>Power factor</dt><dd>{model.powerFactor ?? 'Undocumented; no verified PF inferred'}</dd>
-        <dt>Charging / efficiency</dt><dd>{model.maxChargingA ?? 'Unknown'} A / {model.efficiency == null ? 'Unknown' : `${model.efficiency * 100}%`}</dd>
-        <dt>Input / output</dt><dd>{model.inputVoltageRange ? Object.entries(model.inputVoltageRange).map(([k,v]) => `${k}: ${v.join('–')} V`).join('; ') : 'Undocumented'} / {model.outputVoltage ?? 'Undocumented'}</dd>
-        <dt>Transfer time</dt><dd>{model.transferTimeMs ? `<${model.transferTimeMs.maxExclusive} ms` : 'Undocumented'}</dd>
+        {model.supportedBatteryTypes?.length > 0 && <><dt>Battery types</dt><dd>{model.supportedBatteryTypes.map((type) => ({ flat: 'Flat plate', tubular: 'Tubular', smf: 'SMF', lithium: 'Lithium' }[type] ?? type)).join(', ')}</dd></>}
+        {model.minBatteryAh != null && model.maxBatteryAh != null && <><dt>{model.batteryAhRangeKind === 'recommended' ? 'Recommended battery' : 'Supported battery'}</dt><dd>{model.minBatteryAh}–{model.maxBatteryAh} Ah</dd></>}
+        {model.powerFactor != null && <><dt>Power factor</dt><dd>{model.powerFactor}</dd></>}
+        {model.maxChargingA != null && <><dt>Max charging current</dt><dd>{model.maxChargingA} A</dd></>}
+        {model.chargingCurrentRule && <><dt>Charging guideline</dt><dd>≈{Math.round(setup.batteryAh * model.chargingCurrentRule.batteryAhFraction * 10) / 10} A for your {setup.batteryAh} Ah battery (≈{model.chargingCurrentRule.batteryAhFraction * 100}% of Ah; manual guideline, not a fixed maximum)</dd></>}
+        {model.efficiency != null && <><dt>Rated efficiency</dt><dd>{model.efficiency * 100}%</dd></>}
+        {model.publishedEfficiency?.minExclusive != null && <><dt>Manual efficiency</dt><dd>&gt;{model.publishedEfficiency.minExclusive * 100}%{model.publishedEfficiency.conflictingProductPage ? ' · source discrepancy; see notes' : ''}</dd></>}
+        <dt>Planning efficiency</dt><dd>{Math.round(setup.efficiency * 100)}% · editable {model.efficiency == null ? 'estimate' : 'setting'}</dd>
+        {model.inputVoltageRange && <><dt>Input voltage</dt><dd>{Object.entries(model.inputVoltageRange).map(([k,v]) => `${k}: ${v.join('–')} V`).join('; ')}</dd></>}
+        {model.outputVoltage && <><dt>Output voltage</dt><dd>{model.outputVoltage}</dd></>}
+        {model.transferTimeMs && <><dt>Transfer time</dt><dd>{model.transferTimeMs.maxInclusive != null ? `≤${model.transferTimeMs.maxInclusive}` : `<${model.transferTimeMs.maxExclusive}`} ms</dd></>}
       </dl>
-      <p className="hint">{model.notes}</p>
+      <details className="spec-notes"><summary>Sources and verification notes</summary><p className="hint">{model.notes}</p>{model.manualUrl && <a href={model.manualUrl} target="_blank" rel="noreferrer">Official series manual</a>}</details>
       <a href={model.productUrl} target="_blank" rel="noreferrer">Manufacturer source</a><small> · Verified {model.verificationDate}</small>
       <button type="button" className="btn ghost" onClick={() => { setBrand(''); setSetup({ inverterId: null }); }}>Edit as custom (keep current values)</button>
     </div>}

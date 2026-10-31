@@ -107,8 +107,8 @@
         "tubular",
         "smf"
       ],
-      "minBatteryAh": null,
-      "maxBatteryAh": null,
+      "minBatteryAh": 100,
+      "maxBatteryAh": 200,
       "maxChargingA": null,
       "efficiency": null,
       "surgeCapacity": null,
@@ -123,11 +123,24 @@
         ]
       },
       "outputVoltage": "230 V \u00b110%",
-      "transferTimeMs": null,
+      "transferTimeMs": {
+        "maxInclusive": 15
+      },
       "productUrl": "https://www.microtek.in/product/power-backup-solutions/best-inverter-for-home-india/listing/super-power-pure-sinewave-ups-models-1100-12v-sw",
       "verificationDate": "2026-10-31",
       "classification": "manufacturer verified",
-      "notes": "Official page prints efficiency <80%, not a usable measured efficiency; numerical efficiency remains null. User efficiency estimate remains editable. Do not confuse this SKU with NEW digital-wave variants."
+      "notes": "Super Power SW series manual recommends one 12 V, 100\u2013200 Ah lead-acid battery, charging current approximately 10% of battery Ah, and transfer time \u226415 ms. These are series-manual specifications, not measured values. Manual and linked brochure state efficiency >80%; the product page prints <80%. The manual also differs from the product page on input/output voltage. Product-page voltage values are retained; confirm the label/manual supplied with your unit. Planning efficiency remains an editable estimate. NEW / digital-wave models use different specifications.",
+      "batteryAhRangeKind": "recommended",
+      "chargingCurrentRule": {
+        "batteryAhFraction": 0.1,
+        "approximate": true
+      },
+      "publishedEfficiency": {
+        "minExclusive": 0.8,
+        "source": "manual",
+        "conflictingProductPage": true
+      },
+      "manualUrl": "https://cms.microtek.in/upload/product/MANUAL-450-SUPER-POWER-SW-12V-V4-ccf-1723387267904.pdf"
     },
     {
       "id": "vguard-prime-1150",

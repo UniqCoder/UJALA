@@ -105,3 +105,16 @@ test('every dataset item has provenance and unverified fields are explicitly abs
   for (const m of inverters.models) { assert.equal(m.powerFactor, null); assert.equal(m.surgeCapacity, null); assert.equal(m.efficiency, null); }
   for (const a of specifications.items.filter((a) => a.classification === 'typical estimate')) { assert.equal(a.verificationDate, null); assert.equal(a.sourceUrl, null); }
 });
+
+test('Microtek SW manual data preserves bounds and charging guidance without inventing fixed ratings', () => {
+  const m = inverters.models.find((m) => m.id === 'microtek-super-power-1100-sw');
+  assert.equal(m.minBatteryAh, 100); assert.equal(m.maxBatteryAh, 200);
+  assert.equal(m.batteryAhRangeKind, 'recommended');
+  assert.equal(m.transferTimeMs.maxInclusive, 15);
+  assert.equal(m.chargingCurrentRule.batteryAhFraction, .1);
+  assert.equal(m.maxChargingA, null);
+  assert.equal(m.publishedEfficiency.minExclusive, .8);
+  assert.equal(m.publishedEfficiency.conflictingProductPage, true);
+  assert.equal(m.efficiency, null); assert.equal(m.powerFactor, null);
+  assert.ok(sources.some((s) => s.datasetItemId === m.id && s.officialSourceUrl === m.manualUrl));
+});
