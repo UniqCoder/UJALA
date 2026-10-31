@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ujala Power Cut Planner: DSA Mini Project Report</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font: 9.6pt/1.38 "Segoe UI", Arial, sans-serif; color: #111; margin: 0; }
+  h1 { font-size: 17pt; margin: 0 0 2pt; }
+  h2 { font-size: 11.5pt; margin: 9pt 0 3pt; padding-bottom: 1.5pt; border-bottom: 1px solid #bbb; break-after: avoid; }
+  p { margin: 3pt 0; }
+  ul, ol { margin: 3pt 0; padding-left: 15pt; }
+  li { margin: 1pt 0; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0; font-size: 8.8pt; break-inside: avoid; }
+  th, td { border: 1px solid #c8c8c8; padding: 2pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #f0f0f0; }
+  pre { font: 7.9pt/1.3 Consolas, "Courier New", monospace; background: #f6f6f6; border: 1px solid #e2e2e2; padding: 4pt 6pt; margin: 3pt 0; white-space: pre-wrap; break-inside: avoid; }
+  code { font: 8.6pt Consolas, monospace; }
+  .meta { font-size: 9pt; color: #333; }
+  .title-table { width: auto; min-width: 60%; }
+  figure { margin: 5pt 0; text-align: center; break-inside: avoid; }
+  figure img { max-width: 100%; border: 1px solid #ddd; }
+  figcaption { font-size: 8.4pt; color: #444; font-style: italic; margin-top: 2pt; }
+  .row { display: flex; gap: 10pt; align-items: flex-start; break-inside: avoid; }
+  .row > * { flex: 1; }
+  .formula { text-align: center; font-family: "Cambria Math", Cambria, serif; font-size: 10pt; margin: 4pt 0; }
+</style>
+</head>
+<body>
+
+<h1>Ujala: Power Cut Planner</h1>
+<p class="meta"><b>DSA Mini Project Report</b> · Third Year (TY), Computer Department · Demonstration: 29–31 October 2026</p>
+<p><b>Project title:</b> Ujala: a power cut planner that decides which appliances to keep on during an outage, using greedy, dynamic programming and branch and bound.</p>
+<p><b>Project guide:</b> Prof. ____________________</p>
+<table class="title-table">
+  <tr><th>Name</th><th>Roll no.</th><th>Department</th><th>Year</th></tr>
+  <tr><td>Om Bhirud</td><td>12</td><td>Computer</td><td>Third Year (TY)</td></tr>
+</table>
+
+<h2>1. Problem statement and objectives</h2>
+<p>During a power cut, a household on an inverter has to guess which appliances to switch on, and two things go wrong. <b>Overload:</b> too many appliances, or a motor (fridge compressor, water pump) starting up, exceed the inverter's capacity and it trips. <b>Early drain:</b> the battery runs out before power returns because energy went to low-priority appliances.</p>
+<p>The problem is to choose the most valuable set of appliances that fits the inverter's running-load limit, its momentary surge limit and the battery's usable energy, while keeping every must-run appliance on.</p>
+<p><b>Objectives:</b></p>
+<ol>
+  <li>Model the inverter, battery and appliances from values printed on their labels.</li>
+  <li>Find the set of appliances that maximises total importance within all limits.</li>
+  <li>Compare greedy, dynamic programming, branch and bound (FIFO, LIFO, least cost) and brute force on the same input, measuring correctness, operations and time.</li>
+  <li>Give a staged plan for long outages ("if it passes 4 h, switch off the study fan").</li>
+  <li>Present the result in an interface any household member can use.</li>
+</ol>
+
+<h2>2. Introduction and proposed solution</h2>
+<p>Ujala ("light") is a <b>planner, not a controller</b>: every input comes from labels (inverter VA, battery Ah and voltage, appliance watts), and the household switches appliances by hand following the plan. Three capacities come from the labels:</p>
+<p class="formula">maxW = VA × PF &nbsp;&nbsp;·&nbsp;&nbsp; peakW = maxW × surgeTolerance &nbsp;&nbsp;·&nbsp;&nbsp; usableWh = Ah × V × DoD × health × efficiency</p>
+<p>An 800 VA inverter with PF 0.8 gives 640 W running and 960 W peak. A 150 Ah, 12 V tubular battery (DoD 0.7, efficiency 0.85) gives about 1,071 Wh usable, not the 1,800 Wh the label suggests.</p>
+<p>Each appliance unit <i>i</i> has watts w<sub>i</sub>, importance v<sub>i</sub> (1–10), energy e<sub>i</sub> = w<sub>i</sub> × min(hours needed, T) × duty cycle, and surge extra x<sub>i</sub> = (surge factor − 1) × w<sub>i</sub>. A fridge compressor runs about 40% of the time (duty 0.4); a pump may need only 0.5 h. Because energy depends on hours and duty cycle, watts and energy are different weights, which makes this a genuine <b>two-constraint 0/1 knapsack</b>. Choose a set S to maximise Σ v<sub>i</sub> subject to:</p>
+<table>
+  <tr><th>Constraint</th><th>Condition</th></tr>
+  <tr><td>C1 Running load</td><td>Σ w<sub>i</sub> ≤ maxW</td></tr>
+  <tr><td>C2 Battery</td><td>Σ e<sub>i</sub> ≤ usableWh</td></tr>
+  <tr><td>C3 Surge</td><td>Σ w<sub>i</sub> + max x<sub>i</sub> ≤ peakW (motors started one at a time)</td></tr>
+  <tr><td>C4 Must-run</td><td>every must-run appliance is in S</td></tr>
+</table>
+<p>If the must-run appliances alone break C1, C2 or C3, the planner returns an error naming that limit. The output is the selected set, load and energy used, the surge check, estimated backup time (usableWh ÷ Σ w<sub>i</sub> × duty) and algorithm statistics.</p>
+
+<h2>3. Data structures and algorithms used</h2>
+<p>All structures and algorithms are hand-written in <code>backend/src/</code>; built-in <code>sort</code>, <code>Map</code> and <code>Set</code> are not used for these jobs.</p>
+<table>
+  <tr><th>Concept</th><th>Job in Ujala</th><th>Time complexity</th></tr>
+  <tr><td>Greedy (importance per watt)</td><td>Fast baseline plan</td><td>O(n log n)</td></tr>
+  <tr><td>Max-heap + heap sort</td><td>Orders items for greedy and B&amp;B; priority queue for least-cost B&amp;B</td><td>O(n log n)</td></tr>
+  <tr><td>0/1 knapsack DP, two constraints</td><td>Exact optimum over C1 + C2</td><td>O(n · W · E), pseudo-polynomial</td></tr>
+  <tr><td>Branch and bound (LC, FIFO, LIFO)</td><td>Exact optimum over C1 + C2 + C3</td><td>O(2<sup>n</sup>) worst case</td></tr>
+  <tr><td>Queue (circular buffer)</td><td>FIFO branch and bound (breadth first)</td><td>O(1) enqueue / dequeue</td></tr>
+  <tr><td>Stack</td><td>LIFO branch and bound (depth first)</td><td>O(1) push / pop</td></tr>
+  <tr><td>Brute force (bitmask)</td><td>Ground truth for tests; shows 2<sup>n</sup> growth</td><td>O(2<sup>n</sup> · n)</td></tr>
+  <tr><td>AVL tree</td><td>Appliance catalogue (50 items), prefix search while typing</td><td>O(log n) search / insert</td></tr>
+</table>
+<ul>
+  <li><b>Greedy is not enough.</b> Importance per watt is optimal only when a fraction of an item can be taken (fractional knapsack). Appliances are on or off, so greedy can miss the best set; TC2 shows it scoring 9 against an optimum of 14.</li>
+  <li><b>DP</b> guarantees the optimum for C1 + C2. Its cost depends on the size of the capacities, not just n, so it is pseudo-polynomial, which does not contradict 0/1 knapsack being NP-hard.</li>
+  <li><b>Branch and bound</b> is needed because C3 uses a <i>maximum</i>, which does not fit the DP's additive table. B&amp;B checks any constraint at each node, so it is exact for C1–C3. Running it with a heap, a queue and a stack shows how search order changes the nodes explored.</li>
+  <li><b>Brute force</b> verifies that the other methods return the true optimum, and shows exponential growth.</li>
+  <li><b>AVL tree</b> gives fast, ordered catalogue lookup. Names inserted alphabetically turn a plain BST into a list (height 50 for 50 names); the AVL tree stays at height 6.</li>
+  <li><b>No graph</b> is used: the problem has no network structure.</li>
+</ul>
+
+<h2>4. Algorithms, pseudocode and flowcharts</h2>
+<div class="row">
+<div>
+<p><b>Greedy</b></p>
+<pre>GREEDY(items):
+  S ← must-run items  (error if they break C1–C3)
+  sort remaining by v/w descending   (heap sort)
+  for each item in that order:
+    if adding it keeps C1, C2, C3 true: add to S
+  return S</pre>
+<p><b>Brute force</b> loops a bitmask from 0 to 2<sup>n</sup> − 1 and keeps the best subset satisfying C1–C4 (n ≤ 20).</p>
+</div>
+<div>
+<p><b>Branch and bound</b> (one function, three containers)</p>
+<pre>BRANCH_AND_BOUND(items, strategy):
+  container = max-heap on bound (LC) | queue (FIFO)
+              | stack (LIFO)
+  best ← must-run set; insert root
+  while container not empty:
+    node ← remove next
+    if node.bound ≤ best.value: prune; continue
+    include child: if C1, C2, C3 hold → update best;
+                   insert if bound > best
+    exclude child: insert if bound > best
+  return best    (cap: 200,000 expanded nodes)</pre>
+</div>
+</div>
+<p><b>Two-constraint 0/1 knapsack DP.</b> Watts and energy are rounded <i>up</i> to whole steps (1 W and 1 Wh) so every DP answer is truly feasible. With coarser 10 W / 25 Wh steps, TC1 lost the optimum (40 instead of 43), so steps double only if the table would not fit in memory.</p>
+<pre>DP(items, W, E):
+  dp[0..W][0..E] ← 0;  keep[1..n][0..W][0..E] ← false
+  for i ← 1 to n:
+    for w ← W down to wᵢ:              (downward, so each item is used once)
+      for e ← E down to eᵢ:
+        if dp[w−wᵢ][e−eᵢ] + vᵢ > dp[w][e]:  dp[w][e] ← dp[w−wᵢ][e−eᵢ] + vᵢ;  keep[i][w][e] ← true
+  w ← W; e ← E
+  for i ← n down to 1:  if keep[i][w][e]: take item i;  w ← w − wᵢ;  e ← e − eᵢ      (reconstruct)
+  check C3 on the result; if it fails, flag "use the B&amp;B result"</pre>
+<p><b>B&amp;B upper bound.</b> Items are pre-sorted by v/w. A node holds level, value, load, energy and the largest surge extra so far. Its bound is the smaller of two fractional-knapsack relaxations of the undecided items: one fills the remaining watts by v/w, the other the remaining energy by v/e. Each drops one constraint, so each is a valid bound and the smaller is tighter.</p>
+<figure><img src="img/fig1-flow.png" alt="Overall flow of the planner" style="width: 82%"><figcaption>Figure 1. Overall flow: the must-run check comes first.</figcaption></figure>
+<figure><img src="img/fig2-bnb.png" alt="Branch and bound loop" style="width: 60%"><figcaption>Figure 2. Branch and bound loop; only the container differs between LC, FIFO and LIFO.</figcaption></figure>
+
+<h2>5. Implementation details</h2>
+<p><b>Backend:</b> Node.js 22 + Express (ES modules), no database; the catalogue loads from JSON into the AVL tree at startup. <b>Frontend:</b> React 18 + Vite, React Router, Zustand, GSAP for the landing scroll, hand-drawn SVG for the house, charts and trees, and the open-licensed DSEG7 font for the inverter display.</p>
+<pre>ujala/backend/src/
+  model.js            formulas, validation, C1–C4 checks       planner.js     runs and times each algorithm
+  server.js           REST API on port 4000                     tests/run-tests.js   22 automated checks
+  ds/                 MaxHeap.js  Queue.js  Stack.js  AVLTree.js  BST.js
+  algorithms/         greedy.js  knapsackDP.js  branchAndBound.js  bruteForce.js  stagedPlan.js
+ujala/backend/data/   catalogue.json (50 appliances), testcases.json (TC1–TC6)
+ujala/frontend/src/   pages: Landing, Planner, Lab;  components: House, Switchboard, InverterPanel</pre>
+<p><b>API</b> (base <code>http://localhost:4000/api</code>): <code>GET /catalogue?prefix=</code> (AVL prefix search), <code>GET /catalogue/heights</code>, <code>GET /testcases</code>, <code>POST /plan</code>, <code>POST /compare</code>, <code>POST /staged</code>, <code>POST /bb-tree</code>. Errors return HTTP 400 with a message naming the broken limit.</p>
+<div class="row">
+<div>
+<p><b>DP inner loop</b> (<code>knapsackDP.js</code>)</p>
+<pre>for (let w = W; w >= wi; w--) {
+  for (let e = E; e >= ei; e--) {
+    const take = dp[(w - wi) * cols + (e - ei)] + vi;
+    if (take > dp[w * cols + e]) {
+      dp[w * cols + e] = take;
+      keep[i * cells + w * cols + e] = 1;
+    }
+  }
+}</pre>
+</div>
+<div>
+<p><b>B&amp;B bound, watts relaxation</b> (<code>branchAndBound.js</code>)</p>
+<pre>let room = caps.maxW - node.load, byWatts = node.value;
+for (let i = node.level; i &lt; n &amp;&amp; room > EPS; i++) {
+  const it = sorted[i];
+  if (it.watts &lt;= room) { room -= it.watts;
+                          byWatts += it.importance; }
+  else { byWatts += (it.importance * room) / it.watts;
+         room = 0; }
+}
+return Math.floor(Math.min(byWatts, byWh) + EPS);</pre>
+</div>
+</div>
+<p><b>Testing:</b> <code>npm test</code> runs 22 checks: unit tests for every data structure, and for each test case it computes the optimum by brute force and asserts that DP and all three B&amp;B strategies match it. All 22 pass.</p>
+
+<h2>6. Sample inputs, outputs and screenshots</h2>
+<p><b>Sample input (TC1, normal evening):</b> 800 VA inverter, 150 Ah 12 V tubular battery, 4 h outage. Fridge 150 W (duty 0.4, surge ×3, importance 9); Wi-Fi router 12 W (must-run, 10); three fans 75 W (8, 6, 5); four LED bulbs 9 W (7, 6, 4, 3); TV 80 W (4); laptop charger 65 W (6).</p>
+<p><b>Output (least-cost B&amp;B):</b> keep the router, all four bulbs, the bedroom fan, the laptop charger and the fridge. Total importance 53; load 338 of 640 W; energy 992 of 1,071 Wh; backup about 4.3 h. Left out: hall fan, study fan and TV, each because it would exceed the battery.</p>
+<table>
+  <tr><th>Case</th><th>What it tests</th><th>Greedy</th><th>DP</th><th>B&amp;B (LC / FIFO / LIFO)</th><th>Brute force</th></tr>
+  <tr><td>TC1</td><td>Normal evening, battery binds</td><td>50</td><td>53</td><td>53 / 53 / 53</td><td>53</td></tr>
+  <tr><td>TC2</td><td>Greedy fails (600 W limit; floodlights 350 W vs two PCs 300 W)</td><td><b>9</b></td><td>14</td><td>14 / 14 / 14</td><td>14</td></tr>
+  <tr><td>TC3</td><td>TC1 over 8 h, battery at 60% health</td><td>30</td><td>30</td><td>30 / 30 / 30</td><td>30</td></tr>
+  <tr><td>TC4</td><td>Surge trap (fridge + 370 W pump, surge ×3)</td><td>30</td><td><b>38, fails C3</b></td><td>30 / 30 / 30</td><td>30</td></tr>
+  <tr><td>TC5</td><td>Must-run items need 700 W on a 640 W inverter</td><td>error</td><td>error</td><td>error</td><td>error</td></tr>
+  <tr><td>TC6</td><td>Scaling, 20 optional appliances</td><td>67</td><td>68</td><td>68 / 68 / 68</td><td>68</td></tr>
+</table>
+<ul>
+  <li><b>TC2:</b> greedy takes the floodlights (best importance per watt) and nothing else fits, scoring 9; DP and B&amp;B take both PCs for 14.</li>
+  <li><b>TC4:</b> the DP plan fits the running limit (616 W) but starting the pump needs 1,356 W against a 960 W peak, so it is flagged and the house "trips" on screen. B&amp;B leaves the pump off.</li>
+  <li><b>TC5:</b> HTTP 400, "Your must-run appliances need 700 W, but the inverter supports 640 W (running load limit)."</li>
+  <li><b>TC6:</b> brute force checks 1,048,576 subsets in 72 ms; least-cost B&amp;B expands 22 nodes in 0.3 ms (FIFO 584, LIFO 23).</li>
+</ul>
+<figure><img src="img/fig3-growth.png" alt="Work done as n grows" style="width: 78%"><figcaption>Figure 3. Work done on TC6 with its first 10 to 20 appliances (log scale). DP cells grow with the capacities, not with 2<sup>n</sup>.</figcaption></figure>
+<figure><img src="img/fig4-tc2.jpg" alt="Algorithm lab race on TC2" style="width: 90%"><figcaption>Figure 4. Algorithm lab, TC2: greedy is 5 short of the best; DP, all three B&amp;B strategies and brute force reach 14.</figcaption></figure>
+<figure><img src="img/fig5-tc4.jpg" alt="Planner on TC4 with DP, tripped" style="width: 90%"><figcaption>Figure 5. Planner, TC4 with DP: the surge check fails, the overload light flashes and the house goes dark.</figcaption></figure>
+
+<h2>7. Conclusion and applications</h2>
+<p>Ujala turns a household's power cut into a two-constraint 0/1 knapsack with an extra surge limit, and solves it exactly. Greedy is fast but misses the optimum on 0/1 choices (TC2); dynamic programming is exact for load and battery in pseudo-polynomial time but cannot express the surge maximum (TC4); branch and bound handles all three limits, and least-cost search with a max-heap expands far fewer nodes than FIFO (22 against 584 on TC6), while brute force grows as 2<sup>n</sup>.</p>
+<p><b>Applications:</b> homes with regular outages; homes where medical devices or a work router must stay on; small shops and clinics running lights, fans and card machines on backup; sizing solar battery systems and small-office UPS units.</p>
+<p><b>Future scope:</b> reading live load from smart plugs or smart inverters to switch appliances automatically; solar charging during the outage; a mobile app.</p>
+<p><b>Acknowledgement of tools:</b> Node.js, Express, React, Vite, React Router, Zustand, GSAP, Schibsted Grotesk and DSEG7 fonts (open licence). An AI coding assistant (Claude) was used to help write code and this report; the code has been reviewed and can be explained.</p>
+
+</body>
+</html>

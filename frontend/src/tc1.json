@@ -1,0 +1,107 @@
+{
+  "id": "TC1",
+  "setup": {
+    "inverterVA": 800,
+    "batteryAh": 150,
+    "batteryV": 12,
+    "batteryType": "tubular",
+    "health": 100,
+    "outageHours": 4
+  },
+  "appliances": [
+    {
+      "name": "Fridge",
+      "watts": 150,
+      "dutyCycle": 0.4,
+      "surgeFactor": 3,
+      "importance": 9,
+      "room": "Kitchen",
+      "id": "a1"
+    },
+    {
+      "name": "Wi-Fi router",
+      "watts": 12,
+      "importance": 10,
+      "mustRun": true,
+      "room": "Hall",
+      "id": "a2"
+    },
+    {
+      "name": "Fan (bedroom)",
+      "watts": 75,
+      "importance": 8,
+      "room": "Bedroom",
+      "id": "a3"
+    },
+    {
+      "name": "Fan (hall)",
+      "watts": 75,
+      "importance": 6,
+      "room": "Hall",
+      "id": "a4"
+    },
+    {
+      "name": "Fan (study)",
+      "watts": 75,
+      "importance": 5,
+      "room": "Study",
+      "id": "a5"
+    },
+    {
+      "name": "LED bulb (bedroom)",
+      "watts": 9,
+      "importance": 7,
+      "room": "Bedroom",
+      "id": "a6"
+    },
+    {
+      "name": "LED bulb (hall)",
+      "watts": 9,
+      "importance": 6,
+      "room": "Hall",
+      "id": "a7"
+    },
+    {
+      "name": "LED bulb (kitchen)",
+      "watts": 9,
+      "importance": 4,
+      "room": "Kitchen",
+      "id": "a8"
+    },
+    {
+      "name": "LED bulb (study)",
+      "watts": 9,
+      "importance": 3,
+      "room": "Study",
+      "id": "a9"
+    },
+    {
+      "name": "TV",
+      "watts": 80,
+      "importance": 4,
+      "room": "Hall",
+      "id": "a10"
+    },
+    {
+      "name": "Laptop charger",
+      "watts": 65,
+      "importance": 6,
+      "room": "Study",
+      "id": "a11"
+    }
+  ],
+  "selectedIds": [
+    "a2-1",
+    "a6-1",
+    "a7-1",
+    "a8-1",
+    "a9-1",
+    "a3-1",
+    "a11-1",
+    "a1-1"
+  ],
+  "loadW": 338,
+  "loadPct": 52.8,
+  "backupHours": 4.3,
+  "energyPct": 92.6
+}

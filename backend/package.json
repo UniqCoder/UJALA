@@ -1,0 +1,19 @@
+{
+  "name": "ujala-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ujala power cut planner: greedy, DP and branch and bound over inverter and battery limits",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node src/tests/run-tests.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  }
+}

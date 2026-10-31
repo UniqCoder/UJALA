@@ -1,0 +1,402 @@
+[
+  {
+    "name": "Ceiling fan",
+    "watts": 75,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Table fan",
+    "watts": 50,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Study"
+  },
+  {
+    "name": "Pedestal fan",
+    "watts": 60,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Hall"
+  },
+  {
+    "name": "Exhaust fan",
+    "watts": 40,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Kitchen"
+  },
+  {
+    "name": "BLDC ceiling fan",
+    "watts": 32,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Air cooler",
+    "watts": 200,
+    "surgeFactor": 1.5,
+    "dutyCycle": 1,
+    "category": "cooling",
+    "room": "Hall"
+  },
+  {
+    "name": "Air conditioner 1 ton",
+    "watts": 1000,
+    "surgeFactor": 3,
+    "dutyCycle": 0.7,
+    "category": "cooling",
+    "room": "Bedroom"
+  },
+  {
+    "name": "LED bulb",
+    "watts": 9,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Hall"
+  },
+  {
+    "name": "LED tube light",
+    "watts": 20,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Hall"
+  },
+  {
+    "name": "CFL bulb",
+    "watts": 15,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Tube light (old)",
+    "watts": 40,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Hall"
+  },
+  {
+    "name": "Night lamp",
+    "watts": 5,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Emergency light",
+    "watts": 10,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "lighting",
+    "room": "Hall"
+  },
+  {
+    "name": "Refrigerator (single door)",
+    "watts": 150,
+    "surgeFactor": 3,
+    "dutyCycle": 0.4,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Refrigerator (double door)",
+    "watts": 250,
+    "surgeFactor": 3,
+    "dutyCycle": 0.4,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Water purifier (RO)",
+    "watts": 40,
+    "surgeFactor": 1,
+    "dutyCycle": 0.3,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Mixer grinder",
+    "watts": 500,
+    "surgeFactor": 2,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Microwave oven",
+    "watts": 1200,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Induction cooktop",
+    "watts": 1500,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Electric kettle",
+    "watts": 1500,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Toaster",
+    "watts": 800,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Chimney",
+    "watts": 180,
+    "surgeFactor": 1.5,
+    "dutyCycle": 1,
+    "category": "kitchen",
+    "room": "Kitchen"
+  },
+  {
+    "name": "Water pump (0.5 HP)",
+    "watts": 370,
+    "surgeFactor": 3,
+    "dutyCycle": 1,
+    "category": "utility",
+    "room": "Utility"
+  },
+  {
+    "name": "Water pump (1 HP)",
+    "watts": 750,
+    "surgeFactor": 3,
+    "dutyCycle": 1,
+    "category": "utility",
+    "room": "Utility"
+  },
+  {
+    "name": "Washing machine",
+    "watts": 500,
+    "surgeFactor": 2,
+    "dutyCycle": 0.5,
+    "category": "utility",
+    "room": "Utility"
+  },
+  {
+    "name": "Iron",
+    "watts": 1000,
+    "surgeFactor": 1,
+    "dutyCycle": 0.6,
+    "category": "utility",
+    "room": "Utility"
+  },
+  {
+    "name": "Geyser",
+    "watts": 2000,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "utility",
+    "room": "Bathroom"
+  },
+  {
+    "name": "Vacuum cleaner",
+    "watts": 800,
+    "surgeFactor": 1.5,
+    "dutyCycle": 1,
+    "category": "utility",
+    "room": "Hall"
+  },
+  {
+    "name": "Wi-Fi router",
+    "watts": 12,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "Set-top box",
+    "watts": 15,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "LED TV 32 inch",
+    "watts": 50,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "LED TV 43 inch",
+    "watts": 80,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "Laptop charger",
+    "watts": 65,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Study"
+  },
+  {
+    "name": "Desktop computer",
+    "watts": 250,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Study"
+  },
+  {
+    "name": "Computer monitor",
+    "watts": 30,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Study"
+  },
+  {
+    "name": "Phone charger",
+    "watts": 10,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Printer",
+    "watts": 30,
+    "surgeFactor": 1,
+    "dutyCycle": 0.2,
+    "category": "electronics",
+    "room": "Study"
+  },
+  {
+    "name": "Music system",
+    "watts": 40,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "Gaming console",
+    "watts": 150,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "CCTV recorder",
+    "watts": 25,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Hall"
+  },
+  {
+    "name": "Card machine",
+    "watts": 10,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Shop"
+  },
+  {
+    "name": "Billing computer",
+    "watts": 120,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "electronics",
+    "room": "Shop"
+  },
+  {
+    "name": "Hair dryer",
+    "watts": 1000,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "personal",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Trimmer charger",
+    "watts": 5,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "personal",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Mosquito repellent",
+    "watts": 5,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "personal",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Aquarium pump",
+    "watts": 8,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "personal",
+    "room": "Hall"
+  },
+  {
+    "name": "Electric blanket",
+    "watts": 60,
+    "surgeFactor": 1,
+    "dutyCycle": 0.5,
+    "category": "personal",
+    "room": "Bedroom"
+  },
+  {
+    "name": "CPAP machine",
+    "watts": 40,
+    "surgeFactor": 1,
+    "dutyCycle": 1,
+    "category": "medical",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Oxygen concentrator",
+    "watts": 300,
+    "surgeFactor": 2,
+    "dutyCycle": 1,
+    "category": "medical",
+    "room": "Bedroom"
+  },
+  {
+    "name": "Nebulizer",
+    "watts": 150,
+    "surgeFactor": 1.5,
+    "dutyCycle": 1,
+    "category": "medical",
+    "room": "Bedroom"
+  }
+]

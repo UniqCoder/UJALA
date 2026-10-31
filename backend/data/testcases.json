@@ -1,0 +1,104 @@
+[
+  {
+    "id": "TC1",
+    "name": "Normal evening",
+    "purpose": "A typical 4-hour evening outage. The battery, not the inverter, is the limit.",
+    "setup": { "inverterVA": 800, "batteryAh": 150, "batteryV": 12, "batteryType": "tubular", "health": 100, "outageHours": 4 },
+    "appliances": [
+      { "name": "Fridge", "watts": 150, "dutyCycle": 0.4, "surgeFactor": 3, "importance": 9, "room": "Kitchen" },
+      { "name": "Wi-Fi router", "watts": 12, "importance": 10, "mustRun": true, "room": "Hall" },
+      { "name": "Fan (bedroom)", "watts": 75, "importance": 8, "room": "Bedroom" },
+      { "name": "Fan (hall)", "watts": 75, "importance": 6, "room": "Hall" },
+      { "name": "Fan (study)", "watts": 75, "importance": 5, "room": "Study" },
+      { "name": "LED bulb (bedroom)", "watts": 9, "importance": 7, "room": "Bedroom" },
+      { "name": "LED bulb (hall)", "watts": 9, "importance": 6, "room": "Hall" },
+      { "name": "LED bulb (kitchen)", "watts": 9, "importance": 4, "room": "Kitchen" },
+      { "name": "LED bulb (study)", "watts": 9, "importance": 3, "room": "Study" },
+      { "name": "TV", "watts": 80, "importance": 4, "room": "Hall" },
+      { "name": "Laptop charger", "watts": 65, "importance": 6, "room": "Study" }
+    ]
+  },
+  {
+    "id": "TC2",
+    "name": "Greedy fails",
+    "purpose": "Only the 600 W load limit binds. Greedy grabs the floodlights (best importance per watt) and nothing else fits; the two PCs together are worth more.",
+    "setup": { "inverterVA": 750, "batteryAh": 1000, "batteryV": 24, "batteryType": "lithium", "health": 100, "outageHours": 1 },
+    "appliances": [
+      { "name": "Shop floodlights", "watts": 350, "importance": 9, "room": "Shop" },
+      { "name": "Work PC", "watts": 300, "importance": 7, "room": "Study" },
+      { "name": "Study PC", "watts": 300, "importance": 7, "room": "Study" }
+    ]
+  },
+  {
+    "id": "TC3",
+    "name": "Battery is the bottleneck",
+    "purpose": "TC1's appliances over an 8-hour outage on an older battery (60% health).",
+    "setup": { "inverterVA": 800, "batteryAh": 150, "batteryV": 12, "batteryType": "tubular", "health": 60, "outageHours": 8 },
+    "appliances": [
+      { "name": "Fridge", "watts": 150, "dutyCycle": 0.4, "surgeFactor": 3, "importance": 9, "room": "Kitchen" },
+      { "name": "Wi-Fi router", "watts": 12, "importance": 10, "mustRun": true, "room": "Hall" },
+      { "name": "Fan (bedroom)", "watts": 75, "importance": 8, "room": "Bedroom" },
+      { "name": "Fan (hall)", "watts": 75, "importance": 6, "room": "Hall" },
+      { "name": "Fan (study)", "watts": 75, "importance": 5, "room": "Study" },
+      { "name": "LED bulb (bedroom)", "watts": 9, "importance": 7, "room": "Bedroom" },
+      { "name": "LED bulb (hall)", "watts": 9, "importance": 6, "room": "Hall" },
+      { "name": "LED bulb (kitchen)", "watts": 9, "importance": 4, "room": "Kitchen" },
+      { "name": "LED bulb (study)", "watts": 9, "importance": 3, "room": "Study" },
+      { "name": "TV", "watts": 80, "importance": 4, "room": "Hall" },
+      { "name": "Laptop charger", "watts": 65, "importance": 6, "room": "Study" }
+    ]
+  },
+  {
+    "id": "TC4",
+    "name": "Surge trap",
+    "purpose": "Everything fits the 640 W running limit, but starting the pump needs far more than the 960 W peak. DP ignores surge and gets flagged; branch and bound leaves the pump off.",
+    "setup": { "inverterVA": 800, "batteryAh": 150, "batteryV": 12, "batteryType": "tubular", "health": 100, "outageHours": 4 },
+    "appliances": [
+      { "name": "Fridge", "watts": 150, "dutyCycle": 0.4, "surgeFactor": 3, "importance": 9, "room": "Kitchen" },
+      { "name": "Water pump", "watts": 370, "surgeFactor": 3, "hoursNeeded": 0.5, "importance": 8, "room": "Utility" },
+      { "name": "Wi-Fi router", "watts": 12, "importance": 10, "mustRun": true, "room": "Hall" },
+      { "name": "Fan (bedroom)", "watts": 75, "importance": 6, "room": "Bedroom" },
+      { "name": "LED bulb (hall)", "watts": 9, "importance": 5, "room": "Hall" }
+    ]
+  },
+  {
+    "id": "TC5",
+    "name": "Must-run impossible",
+    "purpose": "The must-run appliances alone need 700 W on a 640 W inverter, so no plan exists.",
+    "setup": { "inverterVA": 800, "batteryAh": 150, "batteryV": 12, "batteryType": "tubular", "health": 100, "outageHours": 4 },
+    "appliances": [
+      { "name": "Air cooler", "watts": 200, "importance": 8, "mustRun": true, "room": "Hall" },
+      { "name": "Fridge", "watts": 150, "dutyCycle": 0.4, "surgeFactor": 3, "importance": 9, "mustRun": true, "room": "Kitchen" },
+      { "name": "Desktop computer", "watts": 350, "importance": 7, "mustRun": true, "room": "Study" },
+      { "name": "Fan (bedroom)", "watts": 75, "importance": 6, "room": "Bedroom" }
+    ]
+  },
+  {
+    "id": "TC6",
+    "name": "Scaling",
+    "purpose": "20 optional appliances: brute force checks 2^20 = 1,048,576 subsets. Compare with DP cells and branch and bound nodes.",
+    "setup": { "inverterVA": 1500, "batteryAh": 200, "batteryV": 12, "batteryType": "tubular", "health": 100, "outageHours": 4 },
+    "appliances": [
+      { "name": "Fan (bedroom)", "watts": 75, "importance": 8, "room": "Bedroom" },
+      { "name": "Fan (hall)", "watts": 75, "importance": 6, "room": "Hall" },
+      { "name": "Table fan", "watts": 50, "importance": 5, "room": "Study" },
+      { "name": "LED tube (hall)", "watts": 20, "importance": 7, "room": "Hall" },
+      { "name": "LED tube (kitchen)", "watts": 20, "importance": 4, "room": "Kitchen" },
+      { "name": "LED bulb (bedroom)", "watts": 9, "importance": 5, "room": "Bedroom" },
+      { "name": "LED bulb (study)", "watts": 9, "importance": 3, "room": "Study" },
+      { "name": "TV", "watts": 100, "importance": 4, "hoursNeeded": 2, "room": "Hall" },
+      { "name": "Set-top box", "watts": 15, "importance": 3, "hoursNeeded": 2, "room": "Hall" },
+      { "name": "Laptop charger", "watts": 65, "importance": 7, "hoursNeeded": 3, "room": "Study" },
+      { "name": "Desktop computer", "watts": 250, "importance": 6, "hoursNeeded": 2, "room": "Study" },
+      { "name": "Computer monitor", "watts": 30, "importance": 4, "hoursNeeded": 2, "room": "Study" },
+      { "name": "Wi-Fi router", "watts": 12, "importance": 9, "room": "Hall" },
+      { "name": "Phone charger", "watts": 10, "importance": 6, "hoursNeeded": 1, "room": "Bedroom" },
+      { "name": "Air cooler", "watts": 200, "importance": 7, "room": "Hall" },
+      { "name": "Mixer grinder", "watts": 500, "importance": 3, "hoursNeeded": 0.25, "room": "Kitchen" },
+      { "name": "Induction cooktop", "watts": 1000, "importance": 5, "hoursNeeded": 0.5, "room": "Kitchen" },
+      { "name": "Iron", "watts": 1000, "importance": 2, "hoursNeeded": 0.25, "room": "Utility" },
+      { "name": "Microwave oven", "watts": 800, "importance": 4, "hoursNeeded": 0.2, "room": "Kitchen" },
+      { "name": "Hair dryer", "watts": 600, "importance": 1, "hoursNeeded": 0.1, "room": "Bedroom" }
+    ]
+  }
+]
