@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { AVLTree } from './ds/AVLTree.js';
 import { BST } from './ds/BST.js';
 import { InputError } from './model.js';
+import { inverters, specifications, sources, algorithmCatalogue } from './catalogues.js';
 import { solve, compare } from './planner.js';
 import { stagedPlan } from './algorithms/stagedPlan.js';
 
@@ -14,6 +15,8 @@ const testcases = readJson('../data/testcases.json');
 const catalogue = new AVLTree();
 for (const item of readJson('../data/catalogue.json')) catalogue.insert(item.name.toLowerCase(), item);
 
+for (const item of algorithmCatalogue()) catalogue.insert(item.name.toLowerCase(), item);
+
 export const app = express();
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
@@ -22,6 +25,32 @@ const api = express.Router();
 const body = (req) => req.body ?? {};
 
 api.get('/health', (req, res) => res.json({ ok: true, catalogueSize: catalogue.size }));
+
+// Static JSON catalogues: filters are case-insensitive, repeated/object query values rejected.
+function filterValue(value, label) {
+  if (value == null) return null;
+  if (typeof value !== 'string' || !value.trim()) throw new InputError(`${label} must be a non-empty string.`);
+  return value.trim().toLowerCase();
+}
+api.get('/inverters', (req, res) => {
+  const brand = filterValue(req.query.brand, 'Brand');
+  res.json({ brands: inverters.brands, models: inverters.models.filter((m) => !brand || m.manufacturer.toLowerCase() === brand) });
+});
+api.get('/inverters/:id', (req, res) => {
+  const item = inverters.models.find((m) => m.id === req.params.id);
+  if (!item) return res.status(404).json({ error: 'Inverter model not found.' });
+  res.json(item);
+});
+api.get('/appliance-specifications', (req, res) => {
+  const category = filterValue(req.query.category, 'Category');
+  res.json({ categories: specifications.categories, items: specifications.items.filter((a) => !category || a.category === category) });
+});
+api.get('/appliance-specifications/:id', (req, res) => {
+  const item = specifications.items.find((a) => a.id === req.params.id);
+  if (!item) return res.status(404).json({ error: 'Appliance specification not found.' });
+  res.json(item);
+});
+api.get('/data-sources', (req, res) => res.json(sources));
 
 api.get('/catalogue', (req, res) => {
   res.json(catalogue.prefixSearch(String(req.query.prefix ?? '').trim().toLowerCase()));

@@ -1,17 +1,4 @@
-// Client-side copy of the backend's power model (PRD Section 5), so the inverter
-// panel can react instantly to manual switch toggles without a server round trip.
-
-const DOD = { flat: 0.5, tubular: 0.7, lithium: 0.9 };
-
-export function capacities(s) {
-  const health = s.health > 1 ? s.health / 100 : s.health;
-  const maxW = s.inverterVA * (s.powerFactor ?? 0.8);
-  return {
-    maxW,
-    peakW: maxW * (s.surgeTolerance ?? 1.5),
-    usableWh: s.batteryAh * s.batteryV * (DOD[s.batteryType] ?? 0.7) * health * (s.efficiency ?? 0.85),
-  };
-}
+export { capacities } from '../../shared/power.js';
 
 // One unit per quantity, with ids matching the backend ("<applianceId>-<k>").
 export function units(appliances, T) {

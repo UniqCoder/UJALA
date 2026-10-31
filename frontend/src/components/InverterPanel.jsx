@@ -61,6 +61,7 @@ export default function InverterPanel({ t, caps, compact = false }) {
       </div>
       {!compact && (
         <div className="panel-notes" aria-live="polite">
+          <p className="hint">Running ceiling: {fmt(caps.maxW)} W · Estimated peak allowance: {fmt(caps.peakW)} W (not manufacturer-certified).</p>
           {t.overload && (
             <p className="bad">
               Overload: {fmt(t.load)} W is over the {fmt(caps.maxW)} W limit. The inverter would trip.
@@ -68,7 +69,7 @@ export default function InverterPanel({ t, caps, compact = false }) {
           )}
           {!t.overload && t.surgeTrip && (
             <p className="bad">
-              Starting the {t.surgeName} needs {fmt(t.peakDemand)} W, but the inverter can only take {fmt(caps.peakW)} W for a moment. It would trip.
+              Estimated startup demand for {t.surgeName} is {fmt(t.peakDemand)} W, above the configured {fmt(caps.peakW)} W peak allowance. Confirm the actual inverter surge rating.
             </p>
           )}
           {!tripped && t.drain && (

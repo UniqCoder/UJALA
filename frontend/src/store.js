@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { selectInverter, editAppliance } from '../../shared/power.js';
 import tc1 from './tc1.json';
 
 export class Offline extends Error {}
@@ -52,6 +53,7 @@ export const useStore = create((set, get) => ({
 
   // Any change to the inputs makes the last plan stale.
   setSetup: (patch) => set((s) => ({ setup: { ...s.setup, ...patch }, plan: null, staged: null, error: null })),
+  selectInverter: (model) => set((s) => ({ setup: selectInverter(s.setup, model), plan: null, staged: null, error: null, caseId: null })),
   setAlgorithm: (algorithm) => set({ algorithm }),
   loadCase: (tc) =>
     set({
@@ -66,7 +68,7 @@ export const useStore = create((set, get) => ({
   addAppliance: (a) =>
     set((s) => ({ appliances: [...s.appliances, { importance: 5, quantity: 1, ...a, id: `n${nextId++}` }], plan: null, staged: null, caseId: null })),
   updateAppliance: (id, patch) =>
-    set((s) => ({ appliances: s.appliances.map((a) => (a.id === id ? { ...a, ...patch } : a)), plan: null, staged: null, caseId: null })),
+    set((s) => ({ appliances: s.appliances.map((a) => (a.id === id ? editAppliance(a, patch) : a)), plan: null, staged: null, caseId: null })),
   removeAppliance: (id) =>
     set((s) => ({ appliances: s.appliances.filter((a) => a.id !== id), plan: null, staged: null, caseId: null })),
   toggle: (unitId) => set((s) => ({ on: { ...s.on, [unitId]: !s.on[unitId] } })),

@@ -9,6 +9,18 @@ Ujala is a **planner, not a controller**. It does not connect to an inverter or
 switch appliances automatically. The household follows the generated plan
 manually.
 
+## Manufacturer-informed setup
+
+Choose a Luminous, Microtek or V-Guard model, review its technical specifications,
+configure the actual battery, and add appliances by category. Five inverter
+presets and 25 appliance entries include explicit source and estimate labels.
+Custom inverter ratings and appliance wattage overrides remain available.
+
+See [catalogue implementation, sources, API and validation](docs/manufacturer-catalogues.md)
+for the exact models, data limitations, shared power model, and file changes.
+Include the root `shared/` folder when deploying either app. Dropdown datasets
+are bundled at frontend build time from the same JSON files served by the API.
+
 ## What it demonstrates
 
 Ujala is a data structures and algorithms project with an interactive React
@@ -33,8 +45,8 @@ they work.
 For an inverter setup:
 
 ```text
-running limit (W) = inverter VA × power factor
-peak limit (W)    = running limit × surge tolerance
+running limit (W) = rated output watts, when supplied; otherwise inverter VA × power factor
+estimated peak (W) = running limit × configurable surge tolerance
 usable energy (Wh) = battery Ah × voltage × depth of discharge
                     × battery health × inverter efficiency
 ```

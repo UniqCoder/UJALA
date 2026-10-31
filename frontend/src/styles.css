@@ -1481,3 +1481,17 @@ h2.sub {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Catalogue controls inherit the existing planner palette and typography. */
+.catalogue-picker { min-width: 0; margin: 1rem 0; }
+.catalogue-picker h3 { font-size: 1rem; margin: 1rem 0 .6rem; }
+.spec-card { border: 1px solid var(--line, #d5d5cc); border-radius: 8px; padding: .75rem; margin: .75rem 0; font-size: .85rem; overflow-wrap: anywhere; }
+.spec-card dl { display: grid; grid-template-columns: minmax(80px, 1fr) minmax(0, 1.5fr); gap: .4rem; margin: .6rem 0; }
+.spec-card dt { opacity: .75; }
+.spec-card dd { margin: 0; }
+.spec-card .btn { margin-top: .65rem; white-space: normal; }
+.catalogue-picker select, .catalogue-picker input { min-width: 0; max-width: 100%; }
+.catalogue-picker .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.catalogue-picker label.check { display: flex; gap: .5rem; margin: .75rem 0; }
+input:disabled { opacity: .65; }
+@media (max-width: 480px) { .catalogue-picker .fields { grid-template-columns: minmax(0, 1fr); } }
